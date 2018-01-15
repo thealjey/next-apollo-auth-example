@@ -1,0 +1,1 @@
+exports.authenticated = require('./authenticated');

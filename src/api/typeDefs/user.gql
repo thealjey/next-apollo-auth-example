@@ -1,0 +1,20 @@
+type Query {
+  # true if the user is authenticated
+  authenticated: Boolean!
+}
+
+type Mutation {
+  # registers a new user in the system
+  createUser(name: String!, email: String!, password: String!): User
+  # signs a user in
+  signinUser(email: String!, password: String!): User
+}
+
+type User {
+  # UUID
+  _id: ID!
+  # user "display" name
+  name: String!
+  # user email, also used as an identifiable username
+  email: String!
+}
