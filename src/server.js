@@ -20,7 +20,7 @@ async function start() {
   const server = createServer(app);
 
   async function buildOptions(req, res) {
-    const user = await authenticate(req);
+    const user = authenticate(req);
     const mongo = await connectMongo();
 
     return {

@@ -1,7 +1,7 @@
 const {verify} = require('jsonwebtoken');
 const {secret} = require('../constants');
 
-module.exports = async ({cookies: {authorization}}) => {
+module.exports = ({cookies: {authorization}}) => {
   let user = null;
 
   try {
