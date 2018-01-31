@@ -38,7 +38,7 @@ export default graphql(Login, {
       set({loading: true});
       mutate({
         variables: {email, password},
-        update: () => {
+        update() {
           set({loading: false});
           Router.replaceRoute('home');
         }
