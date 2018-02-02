@@ -7,7 +7,7 @@ type Mutation {
   # registers a new user in the system
   createUser(name: String!, email: String!, password: String!): User
   # signs a user in
-  signinUser(email: String!, password: String!): User
+  signinUser(email: String!, password: String!, rememberMe: Boolean!): User
 }
 
 type User {

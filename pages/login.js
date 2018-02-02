@@ -13,13 +13,16 @@ const Login = ({onSubmit, loading, error}) =>
       Password
       <input required type="password" placeholder="Enter your password" name="password" />
     </label>
+    <label>
+      <input type="checkbox" name="rememberMe" /> Remember me
+    </label>
     <button disabled={loading} type="submit" className="flex-center-self">{loading ? 'Working...' : 'Login'}</button>
   </form>;
 
 export default graphql(Login, {
   query: `
-    mutation($email: String!, $password: String!) {
-      signinUser(email: $email, password: $password) {
+    mutation($email: String!, $password: String!, $rememberMe: Boolean!) {
+      signinUser(email: $email, password: $password, rememberMe: $rememberMe) {
         _id
       }
     }
@@ -33,11 +36,11 @@ export default graphql(Login, {
     onSubmit(e) {
       e.preventDefault();
 
-      const {email: {value: email}, password: {value: password}} = e.target;
+      const {email: {value: email}, password: {value: password}, rememberMe: {checked: rememberMe}} = e.target;
 
       set({loading: true});
       mutate({
-        variables: {email, password},
+        variables: {email, password, rememberMe},
         update() {
           set({loading: false});
           Router.replaceRoute('home');
