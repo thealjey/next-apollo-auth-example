@@ -16,7 +16,7 @@ const Login = ({onSubmit, loading, error}) =>
     <label>
       <input type="checkbox" name="rememberMe" /> Remember me
     </label>
-    <button disabled={loading} type="submit" className="flex-center-self">{loading ? 'Working...' : 'Login'}</button>
+    <button disabled={loading} type="submit">{loading ? 'Working...' : 'Login'}</button>
   </form>;
 
 export default graphql(Login, {
