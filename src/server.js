@@ -16,29 +16,24 @@ const {port} = require('./constants');
 
 async function start() {
   const schema = await createSchema();
+  const mongo = await connectMongo();
   const app = express();
   const server = createServer(app);
-
-  async function buildOptions(req, res) {
-    const user = authenticate(req);
-    const mongo = await connectMongo();
-
-    return {
-      schema,
-      context: {
-        res,
-        user,
-        ...mongo
-      }
-    };
-  }
 
   await next.prepare();
 
   app.use(cookieParser());
   app.use(bodyParser.json());
 
-  app.use('/graphql', graphqlExpress(buildOptions));
+  app.use('/graphql', graphqlExpress(async (req, res) => ({
+    schema,
+    context: {
+      res,
+      user: authenticate(req),
+      ...mongo,
+      ...buildDataloaders(mongo)
+    }
+  })));
 
   if (dev) {
     app.use('/graphiql', graphiqlExpress({endpointURL: '/graphql'}));
