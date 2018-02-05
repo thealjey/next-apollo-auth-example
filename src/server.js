@@ -25,7 +25,7 @@ async function start() {
   app.use(cookieParser());
   app.use(bodyParser.json());
 
-  app.use('/graphql', graphqlExpress(async (req, res) => ({
+  app.use('/graphql', graphqlExpress((req, res) => ({
     schema,
     context: {
       res,
